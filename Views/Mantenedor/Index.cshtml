@@ -1,0 +1,75 @@
+﻿@model IEnumerable<CRUD.Entities.View_Carta>
+
+<link href="~/bundles/css/mantenedor.min.css" rel="stylesheet" />
+
+<div class="contenedor">
+    <div class="titulo">
+        <span>Mantenedor de cartas</span>
+        <button id="crear" class="crear btn btn-sm btn-success" data-target="#modalCrear">Crear</button>
+    </div>
+    <div class="tabla">
+        <table class="table table-bordered table-hover table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Fuerza base</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>@c.CartaID</td>
+                        <td>@c.CartaNombre</td>
+                        <td>@c.TipoTexto</td>
+                        <td>@c.CartaFuerza</td>
+                        <td>@c.CartaTexto</td>
+                        <td>
+                            <button id="editar_@c.CartaID" class="editar btn btn-sm btn-warning">Editar</button>
+                            <button id="eliminar_@c.CartaID" class="eliminar btn btn-sm btn-danger">Eliminar</button>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="modalCrear">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            Registrar nueva carta
+        </div>
+        <div class="modal-body">
+            <form>
+                <label class="control-label" for="nombre">Nombre de la carta *</label>
+                <input class="form-control" name="nombre" id="nombre" />
+
+                <label class="control-label" for="tipo">Tipo *</label>
+                <select name="tipo" class="form-control" id="tipo">
+                    <option value="0" disabled selected>Elije el tipo</option>
+                </select>
+
+                <label class="control-label" for="fuerza">Fuerza base</label>
+                <input type="number" class="form-control" name="fuerza" id="fuerza" />
+
+                <label class="control-label" for="desc">Descripción</label>
+                <input class="form-control" name="desc" id="desc" />
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="guardar">Guardar</button>
+            <button class="btn btn-danger" id="cancelar">Cancelar</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/bundles/js/mantenedor.js"></script>

@@ -1,0 +1,25 @@
+[
+    {
+        "outputFileName": "wwwroot/bundles/css/mantenedor.css",
+        "inputFiles": [
+            "wwwroot/css/mantenedor.css",
+            "wwwroot/css/site.css"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true,
+            "preserveImportantComments": false
+        }
+    },
+    {
+        "outputFileName": "wwwroot/bundles/js/mantenedor.js",
+        "inputFiles": [
+            "wwwroot/js/site.js"
+        ],
+        "minify": {
+            "enabled": true,
+            "renameLocals": true,
+            "preserveImportantComments": false
+        }
+    }
+]

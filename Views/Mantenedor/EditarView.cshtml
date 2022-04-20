@@ -1,0 +1,124 @@
+﻿@model CRUD.Entities.View_Carta
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            Editar carta
+        </div>
+        <div class="modal-body">
+            <form>
+                <label class="control-label" for="nombre">Nombre de la carta *</label>
+                <input value="@Model.CartaNombre" class="form-control" name="nombre" id="nombreEditar" />
+
+                <label class="control-label" for="tipo">Tipo *</label>
+                <select name="tipo" class="form-control" id="tipoEditar">
+                </select>
+
+                <label class="control-label" for="fuerza">Fuerza base</label>
+                <input value="@Model.CartaFuerza" type="number" class="form-control" name="fuerza" id="fuerzaEditar" />
+
+                <label class="control-label" for="desc">Descripción</label>
+                <input value="@Model.CartaTexto" class="form-control" name="desc" id="descEditar" />
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" id="guardarEditar">Guardar</button>
+            <button class="btn btn-danger" id="cancelarEditar">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        CargaTipoEditar();
+
+        $("#cancelarEditar").click(function () {
+            $(".modal-backdrop").removeClass("show").addClass("hide");
+            $(".modal-backdrop , #modalEditar").remove();
+        })
+
+        $("#guardarEditar").click(function () {
+
+            var nombre = $("#nombreEditar").val();
+            var tipo = $("#tipoEditar").val();
+            var fuerza = $("#fuerzaEditar").val();
+            var desc = $("#descEditar").val();
+            var cartaid = parseInt("@Model.CartaID")
+
+            var datos = {
+                CartaID: cartaid,
+                CartaNombre: nombre,
+                TipoID: tipo,
+                CartaFuerza: fuerza,
+                CartaTexto: desc
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Mantenedor/Editar",
+                cache: false,
+                async: true,
+                data: datos,
+                success: function (res) {
+
+                    if (res.status) {
+
+                        alert("Edición completada");
+
+                        setTimeout(() => {
+                            location.href = "/Mantenedor/"
+                        }, 500)
+
+                    } else {
+                        if ($("#nombreEditar").val() == "" || null) {
+                            $("#nombreEditar").addClass("borde_rojo");
+                            alert("El nombre es obligatorio")
+                        }
+
+                        if ($("#tipoEditar").val() == "0" || $("#tipo").val() == null) {
+                            $("#tipoEditar").addClass("borde_rojo");
+                            alert("El tipo es obligatorio")
+                        }
+                    }
+                },
+                error: function (ex) {
+
+                }
+
+            })
+
+        })
+    })
+
+    function CargaTipoEditar() {
+
+        $.ajax({
+            type: "GET",
+            url: "/Mantenedor/GetTipo",
+            async: true,
+            success: function (res) {
+                var select = $("#tipoEditar");
+
+                $.each(res, function (index, data) {
+                    if (data.tipoID == parseInt("@Model.TipoID")) {
+                        $("<option selected value='" + data.tipoID + "'>" + data.tipoTexto + "</option>").appendTo(select);
+                        console.log(@Model.TipoID)
+                    } else {
+                        $("<option value='" + data.tipoID + "'>" + data.tipoTexto + "</option>").appendTo(select);
+                        console.log(data.tipoID)
+                    }
+
+                })
+
+            },
+            error: function () {
+
+
+            }
+        })
+    }
+
+
+
+</script>

@@ -1,0 +1,22 @@
+﻿.titulo {
+    background-color: #ae2222;
+    text-align: left;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 10px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding-left: 10px;
+}
+.crear {
+    font-size: 16px;
+    float: right;
+    margin-top: 7px;
+    margin-right: 38px;
+    width: 124px;
+    height: 32px;
+}
+.borde_rojo{
+    border: red solid 2px;
+}
